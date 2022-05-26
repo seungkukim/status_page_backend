@@ -4,7 +4,7 @@ const port = 3000
 const cors = require('cors');
 const { sequelize } = require('./models');
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true}));
 app.set('port', process.env.PORT || port);
 
 sequelize.sync({ force: false })
