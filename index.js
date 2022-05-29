@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { sequelize } = require('./models');
+const { initialize_status, check_status, sendMessage } = require('./schedule');
 require('dotenv').config();
 
 app.use(cors({ origin: true, credentials: true}));
@@ -33,6 +34,9 @@ app.use(session({
     }
 }))
 
+initialize_status();
+check_status(1000 * 20);
+sendMessage(1000 * 60 * 10);
 
 app.use('/auth', require('./routes/auth'));
 app.use('/post', require('./routes/post'));

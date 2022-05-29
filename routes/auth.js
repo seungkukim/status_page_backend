@@ -1,32 +1,44 @@
 const express = require('express');
-// const session = require('express-session');
+const session = require('express-session');
+const { Client } = require('ldapts');
 const router = express.Router();
+require('dotenv').config();
 
 
-const myname = "abc";
-const mypassword = "123";
+router.post('/login', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
 
-router.get('/login', async (req, res) => {
-    if(req.body.username == myname && req.body.password == mypassword) {
-        // session = req.session;
-        // session.userid = req.body.username;
-        // res.json("logged in");
-        req.session.userId = req.body.username;
-        req.session.isLogined = true;
+    const OLADAPOptions = {
+        url: process.env.LDAP_BASE_URL,
+        timeout: 0,
+        strictDN: true
+    }
+
+    const client = new Client(OLADAPOptions);
+
+    let login_success = false;
+    try {
+        await client.bind(`uid=${ username },ou=People,dc=sparcs,dc=org`, password);       
+        await client.unbind();
+        login_success = true;
+
+        req.session.username = username;
+        req.session.isLoggedIn = true;
         req.session.save();
-        console.log(req.session);
-        console.log(req.session.isLogined);
         res.send();
+
+    } catch(err) {
+        login_success = false;
+        res.status(400).send("Invalid login");
+
     }
 })
 
-// router.get('')
 
-
-
-router.get('/logout', async (req, res) => {
+router.post('/logout', async (req, res) => {
     req.session.destroy();
-    res.json("logged out");
+    res.json("Logged out");
 })
 
 
