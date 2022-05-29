@@ -9,8 +9,11 @@ module.exports = class Post extends Sequelize.Model {
                 autoIncrement: true,
                 allowNull: false,
             },
+            title : {
+                type: Sequelize.STRING(1025)
+            },
             content : {
-                type: Sequelize.STRING(1025),
+                type: Sequelize.STRING(2047),
             },
             service : {
                 type: Sequelize.STRING(100),

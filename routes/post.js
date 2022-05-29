@@ -1,11 +1,29 @@
 const express = require('express');
 const { Post } = require('../models');
 const router = express.Router();
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 
+
+router.get('/service', async (req, res) => {
+    try {
+        console.log('service testing');
+        const result = await Post.findAll({
+            attributes: [
+                [Sequelize.fn('DISTINCT', Sequelize.col('service')), 'service']
+            ]
+    });
+
+        res.json(result);
+
+    }
+    catch(err) {
+        
+    }
+})
 
 router.get('/:id', async (req, res) => {
     try {
+        // console.log('hi')
         const result = await Post.findOne({
             where: {id : req.params.id }
         })
@@ -17,6 +35,8 @@ router.get('/:id', async (req, res) => {
     }
 
 })
+
+
 
 router.get('/', async (req, res) => {
     try {
@@ -57,11 +77,14 @@ router.put('/', async (req, res) => {
     try {
         const content = req.body.content;
         const service = req.body.service;
+        const title = req.body.title;
+
         console.log(content);
 
         const result = await Post.create({
             content: content,
-            service: service
+            service: service,
+            title: title
         });
 
         res.json(result);
@@ -105,12 +128,5 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-
-// router.get('/test', (req, res) => {
-//     // const service = JSON.parse(req.body.service);
-//     const service = req.body.service;
-//     console.log(service);
-//     res.json(service);
-// })
 
 module.exports = router;
