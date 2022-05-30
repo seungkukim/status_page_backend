@@ -1,4 +1,4 @@
-# wheel_practice
+# status_page_backend
 
 ## Motivation
 스팍스가 운영하는 서비스들의 status를 저장하고, 이를 알려줄 수 있는 기능과
