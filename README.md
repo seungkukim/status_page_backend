@@ -110,7 +110,7 @@ https://docs.google.com/spreadsheets/d/14Der3SEK0L7gYDDerdz_oBK5X8NbSccWFyZX5mC9
 ## Install and Deploy
 ```code
 
-git clone https://github.com/seungkukim/wheel_practice.git
+git clone https://github.com/seungkukim/status_page_backend.git
 cd wheel_practice
 npm install
 pm2 start index.js
