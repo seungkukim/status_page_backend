@@ -89,7 +89,7 @@ const sendMessage = async (requestInterval) => {
         for(const service of service_name) {
             if(error_counter[service] > 0) {
                 console.log(service);
-                text = service + " had " + (error_counter[service] * 2) + " errors in the last 30 min\n" + text;
+                text = service + " had " + (error_counter[service] / 3) + " errors in the last 30 min\n" + text;
             }
         }
         console.log("text is: " + text);
