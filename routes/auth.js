@@ -36,6 +36,16 @@ router.post('/login', async (req, res) => {
 })
 
 
+router.get('/loginstatus', async (req, res) => {
+    if(req.session.isLoggedIn) {
+        res.send("true");
+    }
+    else {
+        res.send("false");
+    }
+})
+
+
 router.post('/logout', async (req, res) => {
     req.session.destroy();
     res.json("Logged out");

@@ -10,7 +10,6 @@ let error_counter = {};
 const service_name = ["newara", "otl", "sso", "geoul", "home", "zabo", "kono", "random"];
 for(const service of service_name) {
     console.log(service);
-    error_counter[service] = 0;
 }
 
 
@@ -31,16 +30,16 @@ const check_status = (requestInterval) => {
 
 }
 
-const initialize_status = async () => {
-    await Status.create({operational: false, service: "newara"});
-    await Status.create({operational: false, service: "otl"});
-    await Status.create({operational: false, service: "sso"});
-    await Status.create({operational: false, service: "geoul"});
-    await Status.create({operational: false, service: "home"});
-    await Status.create({operational: false, service: "zabo"});
-    await Status.create({operational: false, service: "kono"});
-    await Status.create({operational: false, service: "random"});
-}
+// const initialize_status = async () => {
+//     await Status.create({operational: false, service: "newara"});
+//     await Status.create({operational: false, service: "otl"});
+//     await Status.create({operational: false, service: "sso"});
+//     await Status.create({operational: false, service: "geoul"});
+//     await Status.create({operational: false, service: "home"});
+//     await Status.create({operational: false, service: "zabo"});
+//     await Status.create({operational: false, service: "kono"});
+//     await Status.create({operational: false, service: "random"});
+// }
 
 const status_info = async (url, service_name) => {
     try {
@@ -112,4 +111,4 @@ const sendMessage = async (requestInterval) => {
 }
 
 
-module.exports = { initialize_status , check_status, sendMessage };
+module.exports = { check_status, sendMessage };

@@ -19,9 +19,7 @@ sequelize.sync({ force: false })
         console.error(err);
     });
 
-
 app.use(express.json());
-
 app.use(cookieParser());
 app.use(session({
     secret: process.env.COOKIE_KEY,
@@ -33,14 +31,13 @@ app.use(session({
         maxAge: 30 * 60 * 1000
     }
 }))
-
-initialize_status();
-check_status(1000 * 20);
-sendMessage(1000 * 60 * 10);
-
 app.use('/auth', require('./routes/auth'));
 app.use('/post', require('./routes/post'));
 app.use('/status', require('./routes/status'));
+
+
+check_status(1000 * 20);
+sendMessage(1000 * 60 * 30);
 
 
 app.listen(port, () => {
